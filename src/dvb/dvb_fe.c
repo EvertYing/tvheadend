@@ -108,12 +108,8 @@ dvb_fe_monitor(void *aux)
   /**
    * Read out front end status
    */
-  if(ioctl(tda->tda_fe_fd, FE_READ_STATUS, &fe_status)) {
-    tvhlog(LOG_WARN, "dvb", "FAILED TO FE_READ_STATUS");
+  if(ioctl(tda->tda_fe_fd, FE_READ_STATUS, &fe_status))
     fe_status = 0;
-  } else {
-    tvhlog(LOG_DEBUG, "dvb", "FE_READ_STATUS = %08X\n", fe_status);
-  }
 
   if(fe_status & FE_HAS_LOCK)
     status = -1;
@@ -286,7 +282,7 @@ dvb_fe_stop(th_dvb_mux_instance_t *tdmi, int retune)
   }
 
   dvb_table_flush_all(tdmi);
-  dvb_adapter_stop_dvr(tdmi);
+  dvb_adapter_stop_dvr(tda);
 
   assert(tdmi->tdmi_scan_queue == NULL);
 
