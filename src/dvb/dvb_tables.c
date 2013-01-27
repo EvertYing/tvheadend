@@ -873,16 +873,12 @@ dvb_nit_callback(th_dvb_mux_instance_t *tdmi, uint8_t *ptr, int len,
     dtag = ptr[0];
     dlen = ptr[1];
 
-#if 0
     switch(dtag) {
       case DVB_DESC_NETWORK_NAME:
         if(dvb_get_string(netname, sizeof(netname), ptr+2, dlen, NULL, NULL))
           return -1;
-        if (tableid == 0x40)
-  	      dvb_mux_set_networkname(tdmi, netname);
         break;
     }
-#endif
 
     ptr  += dlen + 2;
     llen -= dlen + 2;
